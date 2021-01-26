@@ -1,23 +1,21 @@
 #!/bin/bash -x
 
-isFullTime=1
-isPartTime=2
-empWagePerHr=20
+isPartTime=1;
+isFullTime=2;
+empWagePerHr=20;
 
-empType=$((RANDOM%3));
+empCheck=$((RANDOM%3));
 
-if [ $isFullTime -eq $empType ];
-then
-        empHr=10;
+case $empCheck in
+	$isFullTime)
+		empHrs=10 ;;
+	$isPartTime)
+		empHrs=8 ;;
 
-elif [ $isPartTime -eq $empType ];
-then
-        empHr=8;
+	*)
+		empHrs=0
+		echo "Employee Is Absent" ;;
+esac
 
-else
-	empHR=0;
-	echo 'Emp is absent';
-fi
-
-empSalaryIs = $(($empWagePerHr*$empHr))
-echo $empSalaryIs
+empSalary=$(($empHrs*$empWagePerHr));
+echo $empSalary
