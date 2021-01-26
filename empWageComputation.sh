@@ -12,6 +12,7 @@ maxHrsInMonth=100;
 totalEmpHrs=0;
 totalWorkingDays=0;
 
+declare -A dailyWage
 
 function empHrCheck() {
 	 local empHrs
@@ -31,12 +32,13 @@ do
 
 	((totalWorkingDays++))
 	empHrs="$( empHrCheck $((RANDOM%3)) )";
-	salaryOnDay=$((empWagePerHr*empHrs));
 	totalEmpHrs=$((totalEmpHrs+empHrs));
-	dailyWage[$totalWorkingDays]=$salaryOnDay;
+	salary=$((empHrs*empWagePerHr));
+	dailyWage["day "$totalWorkingDays]="$salary";
 
 done
 
 totalSalary=$(($totalEmpHrs*$empWagePerHr));
-echo $totalSalary
-echo "${dailyWage[@]}";
+echo ${dailyWage[@]};
+echo ${!dailyWage[@]};
+
