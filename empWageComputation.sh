@@ -1,4 +1,11 @@
 #!/bin/bash -x
 
-echo "WelCome To Employee Wage Computation"
+isPresent=1;
+random=$((RANDOM%2));
 
+if [ $isPresent -eq $random ];
+then
+	echo "Empolyee Is Present"
+else
+	echo "Employee Is Not Present"
+fi
