@@ -4,33 +4,35 @@ empFullTime=1;
 empPartTime=2;
 empWagePerHr=20;
 maxWorkingDays=20;
-totalSalary=0;
 maxHrsInMonth=100;
 #variables
 totalEmpHrs=0;
 totalWorkingDays=0;
 
 
+function empHrCheck() {
+	local empHrs
+	case $1 in
+        	$empFullTime)
+                	empHrs=8 ;;
+                $empPartTime)
+                        empHrs=4 ;;
+                *)
+                        empHrs=0 ;;
+        esac
+	echo $empHrs
+}
 
-while [ $totalEmpHrs -le  $maxHrsInMonth ] && [ $totalWorkingDays -le $maxWorkingDays ]
+while [[ $totalEmpHrs -lt $maxHrsInMonth && $totalWorkingDays -lt $maxWorkingDays ]]
 do
 
 	((totalWorkingDays++))
 
-	empCheck=$((RANDOM%3));
-		case $empCheck in
-			$empFullTime)
-				empHrs=10 ;;
-			$empPartTime)
-				empHrs=8 ;;
-			*)
-				empHrs=0
-				echo "Employee Is Absent" ;;
-		esac
-
-	totalEmpHrs=$(($totalEmpHrs+$empHrs));
+	empHrsPerDay="$( empHrCheck $((RANDOM%3)) )"
+	totalEmpHrs=$((totalEmpHrs+empHrsPerDay));
 
 done
 
 totalSalary=$(($totalEmpHrs*$empWagePerHr))
+echo $totalSalary
 
