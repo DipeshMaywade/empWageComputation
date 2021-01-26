@@ -1,11 +1,19 @@
 #!/bin/bash -x
 
-isPresent=1;
-random=$((RANDOM%2));
+IsPresent=1
+empWagePerHr=20
+maxOneDayHr=8
 
-if [ $isPresent -eq $random ];
+AttendanceCheck=$((RANDOM%2))
+
+if [[ $AttendanceCheck -eq 1 ]];
 then
-	echo "Empolyee Is Present"
+	echo "Employee present";
+	dailyWage=$(($empWagePerHr*$maxOneDayHr));
+
 else
-	echo "Employee Is Not Present"
+	echo "Employee is not present";
+	dailyWage=0;
 fi
+
+echo $dailyWage
