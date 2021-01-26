@@ -2,29 +2,35 @@
 
 empFullTime=1;
 empPartTime=2;
-
 empWagePerHr=20;
-workingDays=20;
+maxWorkingDays=20;
 totalSalary=0;
+maxHrsInMonth=100;
+#variables
+totalEmpHrs=0;
+totalWorkingDays=0;
 
 
 
-for (( day=1; day<=$workingDays; day++ ))
+while [ $totalEmpHrs -le  $maxHrsInMonth ] && [ $totalWorkingDays -le $maxWorkingDays ]
 do
+
+	((totalWorkingDays++))
+
 	empCheck=$((RANDOM%3));
-	case $empCheck in
-		$empFullTime)
-			empHrs=10 ;;
-		$empPartTime)
-			empHrs=8 ;;
-		*)
-			empHrs=0
-			echo "Employee Is Absent" ;;
-	esac
+		case $empCheck in
+			$empFullTime)
+				empHrs=10 ;;
+			$empPartTime)
+				empHrs=8 ;;
+			*)
+				empHrs=0
+				echo "Employee Is Absent" ;;
+		esac
 
+	totalEmpHrs=$(($totalEmpHrs+$empHrs));
 
-	salaryPerDay=$(($empWagePerHr*$empHrs));
-	totalSalary=$(($totalSalary+$salaryPerDay));
 done
 
-echo $totalSalary
+totalSalary=$(($totalEmpHrs*$empWagePerHr))
+
