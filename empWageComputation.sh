@@ -1,19 +1,23 @@
 #!/bin/bash -x
 
-IsPresent=1
+isFullTime=1
+isPartTime=2
 empWagePerHr=20
-maxOneDayHr=8
 
-AttendanceCheck=$((RANDOM%2))
+empType=$((RANDOM%3));
 
-if [[ $AttendanceCheck -eq 1 ]];
+if [ $isFullTime -eq $empType ];
 then
-	echo "Employee present";
-	dailyWage=$(($empWagePerHr*$maxOneDayHr));
+        empHr=10;
+
+elif [ $isPartTime -eq $empType ];
+then
+        empHr=8;
 
 else
-	echo "Employee is not present";
-	dailyWage=0;
+	empHR=0;
+	echo 'Emp is absent';
 fi
 
-echo $dailyWage
+empSalaryIs = $(($empWagePerHr*$empHr))
+echo $empSalaryIs
