@@ -1,21 +1,30 @@
 #!/bin/bash -x
 
-isPartTime=1;
-isFullTime=2;
+empFullTime=1;
+empPartTime=2;
+
 empWagePerHr=20;
+workingDays=20;
+totalSalary=0;
 
-empCheck=$((RANDOM%3));
 
-case $empCheck in
-	$isFullTime)
-		empHrs=10 ;;
-	$isPartTime)
-		empHrs=8 ;;
 
-	*)
-		empHrs=0
-		echo "Employee Is Absent" ;;
-esac
+for (( day=1; day<=$workingDays; day++ ))
+do
+	empCheck=$((RANDOM%3));
+	case $empCheck in
+		$empFullTime)
+			empHrs=10 ;;
+		$empPartTime)
+			empHrs=8 ;;
+		*)
+			empHrs=0
+			echo "Employee Is Absent" ;;
+	esac
 
-empSalary=$(($empHrs*$empWagePerHr));
-echo $empSalary
+
+	salaryPerDay=$(($empWagePerHr*$empHrs));
+	totalSalary=$(($totalSalary+$salaryPerDay));
+done
+
+echo $totalSalary
